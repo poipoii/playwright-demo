@@ -33,14 +33,15 @@ pipeline {
 
   post {
     always {
-      // archiveArtifacts artifacts: 'playwright-report/**', allowEmptyArchive: true
+      archiveArtifacts artifacts: 'playwright-report/**', allowEmptyArchive: true
       publishHTML(target: [
         allowMissing: false,
         alwaysLinkToLastBuild: true,
         keepAll: true,
         reportDir: 'playwright-report',
         reportFiles: 'index.html',
-        reportName: 'Playwright Test Report'
+        reportName: 'Playwright Test Report',
+        sandbox: false
       ])
     }
   }
