@@ -29,11 +29,24 @@ pipeline {
         sh 'npx playwright test --reporter=line,html'
       }
     }
-  }
 
-  post {
-    always {
-      archiveArtifacts artifacts: 'playwright-report/**', allowEmptyArchive: true
+    stage('Publish Playwright HTML report') {
+      steps {
+        publishHTML(target: [
+          allowMissing: false,
+          alwaysLinkToLastBuild: true,
+          keepAll: true,
+          reportDir: 'playwright-report',
+          reportFiles: 'index.html',
+          reportName: 'Playwright Test Report'
+        ])
+      }
     }
   }
+
+//   post {
+//     always {
+//       archiveArtifacts artifacts: 'playwright-report/**', allowEmptyArchive: true
+//     }
+//   }
 }
