@@ -18,6 +18,7 @@ pipeline {
 
     stage('Install Playwright browsers') {
       steps {
+        sh 'npx playwright install-deps --dry-run'
         // No --with-deps because Jenkins user is not root
         sh 'npx playwright install'
       }
